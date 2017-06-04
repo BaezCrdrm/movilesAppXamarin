@@ -89,10 +89,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Frame Grid.Column="0" x:Name="frameEventList">
-                        <Rectangle Fill="Red" ></Rectangle>
+                    <Frame Grid.Column="0" x:Name="frameEventList"
+                           Margin="10" >
                     </Frame>
-                    <Frame Grid.Column="1" x:Name="frameEventDetails"/>
+                    <Frame Grid.Column="1" x:Name="frameEventDetails"
+                           Margin="10" />
                 </Grid>
             </SplitView.Content>            
         </SplitView>        

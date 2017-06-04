@@ -31,6 +31,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Logic\DataAsync.cs" />
     <Compile Include="Logic\Service.cs" />
     <Compile Include="Model\Channel.cs" />
     <Compile Include="Model\Event.cs" />

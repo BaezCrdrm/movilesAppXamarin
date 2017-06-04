@@ -1,4 +1,5 @@
 ﻿using MovilesApp.Model;
+using MovilesApp.UWP.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -69,6 +70,8 @@ namespace MovilesApp.UWP
         private void lvMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             EventType et = (EventType)((ListView)sender).SelectedItem;
+
+            frameEventList.Navigate(typeof(EventList));
         }
     }
 }
