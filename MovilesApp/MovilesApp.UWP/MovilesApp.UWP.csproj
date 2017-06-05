@@ -114,6 +114,13 @@
     <None Include="MovilesApp.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\americano.png" />
+    <Content Include="Assets\baseball.png" />
+    <Content Include="Assets\basketball.png" />
+    <Content Include="Assets\gen.png" />
+    <Content Include="Assets\musica.png" />
+    <Content Include="Assets\premios.png" />
+    <Content Include="Assets\soccer.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

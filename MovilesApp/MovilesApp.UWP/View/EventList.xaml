@@ -34,9 +34,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:Event">
                         <StackPanel Orientation="Horizontal" Tag="{x:Bind Id}">
-                            <Image/>
+                            <Image Width="50" Height="50" 
+                                   Source="Assets/americano.png"/>
 
-                            <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Vertical"
+                                        Margin="15, 10, 10, 10">
                                 <TextBlock Text="{x:Bind Name}" Style="{ThemeResource BaseTextBlockStyle}" />
                                 <TextBlock Text="{x:Bind Description}" Foreground="gray" FontSize="12" />
                             </StackPanel>
