@@ -44,6 +44,9 @@ namespace MovilesApp.UWP
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             lvMenu.SelectedIndex = 0;
+            frameEventDetails.Visibility = Visibility.Collapsed;
+            frameEventDetails.IsEnabled = false;
+            frameEventList.Visibility = Visibility.Visible;
         }
 
         private void btnMenu_Click(object sender, RoutedEventArgs e)
@@ -60,8 +63,8 @@ namespace MovilesApp.UWP
             EventTypeCollection.Add(new EventType(-1, "Todo"));
             EventTypeCollection.Add(new EventType(1, "Americano"));
             EventTypeCollection.Add(new EventType(2, "Soccer"));
-            EventTypeCollection.Add(new EventType(3, "Baseball"));
-            EventTypeCollection.Add(new EventType(4, "Basketball"));
+            EventTypeCollection.Add(new EventType(3, "Basketball"));
+            EventTypeCollection.Add(new EventType(4, "Baseball"));            
             EventTypeCollection.Add(new EventType(5, "Musicales"));
             EventTypeCollection.Add(new EventType(6, "Premios"));
             EventTypeCollection.Add(new EventType(7, "Otros"));
@@ -71,7 +74,29 @@ namespace MovilesApp.UWP
         {
             EventType et = (EventType)((ListView)sender).SelectedItem;
 
-            frameEventList.Navigate(typeof(EventList));
+            frameEventDetails.Visibility = Visibility.Collapsed;
+            spMenu.IsPaneOpen = false;
+            frameEventList.Visibility = Visibility.Visible;
+            frameEventList.Navigate(typeof(EventList), et.Id);
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Visibility visible = Visibility.Visible;
+            Visibility collapsed = Visibility.Collapsed;
+
+            if (this.ActualWidth < 640)
+            {
+                if (frameEventDetails.Visibility == visible && frameEventDetails.IsEnabled == true)
+                    frameEventList.Visibility = collapsed;
+                else
+                    frameEventList.Visibility = visible;
+            }
+            else
+            {
+                frameEventList.Visibility = visible;
+                frameEventDetails.Visibility = visible;
+            }
         }
     }
 }

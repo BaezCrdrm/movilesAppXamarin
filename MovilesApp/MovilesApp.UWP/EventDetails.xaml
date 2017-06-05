@@ -2,12 +2,106 @@
     x:Class="MovilesApp.UWP.View.EventDetails"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MovilesApp.UWP.View"
+    xmlns:local="using:MovilesApp.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d" Loaded="Page_Loaded">
         
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualState">
+                <VisualState x:Name="SmallPortrait">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rdRow1.Height"
+                                Value="220" />
+                        <Setter Target="imgEventType.Width"
+                                Value="280" />
+                        <Setter Target="txbEventTitle.FontSize"
+                                Value="25" />
+                        <Setter Target="txbEventSch.FontSize"
+                                Value="18" />
+                        <Setter Target="spBasicInfo.MaxWidth"
+                                Value="215" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="HalfSizeLandscape">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rdRow1.Height"
+                                Value="240" />
+                        <Setter Target="imgEventType.Height"
+                                Value="320" />
+                        <Setter Target="txbEventTitle.FontSize"
+                                Value="30" />
+                        <Setter Target="txbEventSch.FontSize"
+                                Value="23" />
+                        <Setter Target="spBasicInfo.MaxWidth"
+                                Value="440" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="BigLandscape">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1008" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rdRow1.Height"
+                                Value="260" />
+                        <Setter Target="imgEventType.Height"
+                                Value="350" />
+                        <Setter Target="txbEventTitle.FontSize"
+                                Value="35" />
+                        <Setter Target="txbEventSch.FontSize"
+                                Value="25" />
+                        <Setter Target="spBasicInfo.MaxWidth"
+                                Value="850" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="rdRow1" />
+            <RowDefinition x:Name="rdRow2" Height="*" />
+        </Grid.RowDefinitions>
+
+        <RelativePanel Grid.Row="0" x:Name="rpHeader">
+            <Image x:Name="imgEventType"
+                   Source="/Assets/soccergrande_rect.png"/>
+
+            <StackPanel x:Name="spBasicInfo"
+                        Orientation="Vertical"
+                        RelativePanel.AlignRightWithPanel="True"
+                        RelativePanel.AlignBottomWithPanel="True"
+                        Margin="5, 5, 10, 10">
+                <TextBlock x:Name="txbEventTitle"
+                           Text="Titulo del evento"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Right"
+                           FontSize="30" />
+                <TextBlock x:Name="txbEventSch" 
+                           Text="Horario del evento"
+                           TextWrapping="Wrap"
+                           Foreground="LightGray"
+                           HorizontalAlignment="Right"/>
+            </StackPanel>
+        </RelativePanel>
+
+        <RelativePanel Grid.Row="1">
+            <ListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RelativePanel>
     </Grid>
 </Page>

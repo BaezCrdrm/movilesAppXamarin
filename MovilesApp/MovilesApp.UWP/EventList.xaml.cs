@@ -3,6 +3,7 @@ using MovilesApp.Model;
 using MovilesApp.UWP.LocalModel;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -30,6 +31,7 @@ namespace MovilesApp.UWP.View
     {
         private readonly SynchronizationContext sc;
         private ObservableCollection<uwpEvent> _events;
+        private int typeEvent = 0;
 
         public ObservableCollection<uwpEvent> EventCollection
         {
@@ -44,9 +46,25 @@ namespace MovilesApp.UWP.View
             sc = SynchronizationContext.Current;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            typeEvent = (Int32)e.Parameter;
+            base.OnNavigatedTo(e);
+        }
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            GetDataAsync();
+            try
+            {
+                GetDataAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageDialog md = new MessageDialog(
+                    "Hubo un problema al obtener los resultados. Intente una vez más",
+                    "Upps :S");
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         private async void GetDataAsync()
@@ -58,7 +76,7 @@ namespace MovilesApp.UWP.View
 
             Service service = new Service();
             Task<ObservableCollection<Event>> task =
-                Task.Run(() => service.GetData(null, 1));
+                Task.Run(() => service.GetData(null, typeEvent));
 
             ObservableCollection<Event> _temp = new ObservableCollection<Event>();
             _temp = task.Result;
@@ -86,11 +104,11 @@ namespace MovilesApp.UWP.View
                         break;
 
                     case 3:
-                        strUri += "baseball.png";
+                        strUri += "basketball.png";
                         break;
 
-                    case 4:
-                        strUri += "basketball.png";
+                    case 4:                        
+                        strUri += "baseball.png";
                         break;
 
                     case 5:
@@ -134,6 +152,22 @@ namespace MovilesApp.UWP.View
                     prProgress.IsActive = false;
                 }
             }), value);
+        }
+
+        private void lvEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            uwpEvent _ev = (uwpEvent)((ListView)sender).SelectedItem;
+            var grid = this.Frame.Parent as Grid;
+            var detFrame = grid.Children[1] as Frame;
+            detFrame.IsEnabled = true;
+            detFrame.Visibility = Visibility.Visible;
+
+            //if (grid.ActualWidth <= 640)
+            //{
+            //    this.Frame.Visibility = Visibility.Collapsed;
+            //}
+
+            detFrame.Navigate(typeof(EventDetails), _ev.Id);
         }
     }
 }

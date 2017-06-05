@@ -27,7 +27,8 @@
 
             <ListView Grid.Row="1"
                       x:Name="lvEvents"
-                      ItemsSource="{x:Bind EventCollection}" >
+                      ItemsSource="{x:Bind EventCollection}"
+                      SelectionChanged="lvEvents_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:uwpEvent">
                         <StackPanel Orientation="Horizontal" Tag="{x:Bind Id}">

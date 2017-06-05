@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:MovilesApp.Model"
-    mc:Ignorable="d" Loaded="Page_Loaded">
+    mc:Ignorable="d" Loaded="Page_Loaded" SizeChanged="Page_SizeChanged">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
@@ -20,7 +20,14 @@
                                 Value="2" />
                         <Setter Target="frameEventDetails.(Grid.ColumnSpan)"
                                 Value="2" />
-                        <Setter Target="spnlMenu.Background" Value="Transparent" />
+                        <Setter Target="frameEventDetails.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="frameEventList.Margin"
+                                Value="0" />
+                        <Setter Target="frameEventDetails.Margin"
+                                Value="0" />
+                        <Setter Target="spnlMenu.Background"
+                                Value="Transparent" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -92,8 +99,11 @@
                     <Frame Grid.Column="0" x:Name="frameEventList"
                            Margin="10" >
                     </Frame>
+
                     <Frame Grid.Column="1" x:Name="frameEventDetails"
-                           Margin="10" />
+                           Margin="10" Visibility="Collapsed"
+                           IsEnabled="False" >
+                    </Frame>
                 </Grid>
             </SplitView.Content>            
         </SplitView>        
