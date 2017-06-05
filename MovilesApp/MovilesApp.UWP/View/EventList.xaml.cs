@@ -1,4 +1,5 @@
-﻿using MovilesApp.Model;
+﻿using MovilesApp.Logic;
+using MovilesApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,6 +36,13 @@ namespace MovilesApp.UWP.View
         public EventList()
         {
             this.InitializeComponent();
+            test();
+        }
+
+        private async void test()
+        {
+            Service service = new Service();
+            await service.GetData(null, 1);
         }
     }
 }

@@ -13,7 +13,25 @@ namespace MovilesApp.Model
         public string Name { get; set; }
         public DateTime Schedule { get; set; }
         public string Description { get; set; }
-        public EventType Type { get; set; }
-        public ObservableCollection<Channel> ChannelList { get; set; }
+        private EventType _eventType;
+        private ObservableCollection<Channel> _channelList;
+
+        public EventType Type
+        {
+            get { return _eventType; }
+            set { _eventType = value; }
+        }
+
+        public ObservableCollection<Channel> ChannelList
+        {
+            get { return _channelList; }
+            set { _channelList = value; }
+        }        
+
+        public Event()
+        {
+            _eventType = new EventType();
+            _channelList = new ObservableCollection<Channel>();
+        }
     }
 }

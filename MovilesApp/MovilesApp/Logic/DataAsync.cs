@@ -2,16 +2,20 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
+using System.Diagnostics;
+using Windows.Data.Json;
+using System.IO;
 
 namespace MovilesApp.Logic
 {
     public class DataAsync
     {
-        public Task<string> Get(Event ev)
+        public async Task<string> Get(Event ev)
         {
-            string line = "";
-            int response = 0;
-            StringBuilder result = null;
+            HttpStatusCode response;
+            string result = "";
 
             try
             {
@@ -20,15 +24,44 @@ namespace MovilesApp.Logic
                 if (ev.Type.Id > 0)
                     strUrl += ev.Type.Id.ToString();
 
+                HttpClientHandler handler = new HttpClientHandler();
+                HttpClient con = new HttpClient(handler);
+                var resp = await con.GetAsync(strUrl);
+                Debug.WriteLine(resp.ToString());
                 
+                try
+                {                   
+                    response = resp.StatusCode;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Ha habido un error al establecer la conexión");
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+
+                if (response == HttpStatusCode.OK)
+                {
+                    result = await resp.Content.ReadAsStringAsync();
+                    return result;
+
+                    /*string json = "";
+                    var r = await resp.Content.ReadAsStreamAsync();
+                    using (StreamReader tr = new StreamReader(r))
+                    {
+                        json = tr.ReadToEnd();
+                    }
+                    return json;*/
+                }
+                else
+                    return null;
+
             }
             catch (Exception ex)
             {
-
-                throw;
+                Debug.WriteLine("Error: " + ex.Message);
+                return null;
             }
-
-            return null;
         }
     }
 }

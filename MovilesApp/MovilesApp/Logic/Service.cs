@@ -6,12 +6,30 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Data.Json;
 
 namespace MovilesApp.Logic
 {
     public class Service
     {
-        public ObservableCollection<Event> GetData(string id, int type)
+        private ObservableCollection<Event> getEventCollection(string json)
+        {
+            ObservableCollection<Event> events = new ObservableCollection<Event>();
+
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return events;
+        }
+
+        public async Task<ObservableCollection<Event>> GetData(string id, int type)
         {
             ObservableCollection<Event> events = new ObservableCollection<Event>();
             if (id == null)
@@ -24,7 +42,8 @@ namespace MovilesApp.Logic
 
             try
             {
-
+                DataAsync da = new DataAsync();
+                json = await da.Get(ev);
             }
             catch (Exception ex)
             {
