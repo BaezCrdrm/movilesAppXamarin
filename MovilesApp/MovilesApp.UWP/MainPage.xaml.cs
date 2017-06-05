@@ -61,7 +61,7 @@ namespace MovilesApp.UWP
             EventTypeCollection.Add(new EventType(1, "Americano"));
             EventTypeCollection.Add(new EventType(2, "Soccer"));
             EventTypeCollection.Add(new EventType(3, "Baseball"));
-            EventTypeCollection.Add(new EventType(4, "Americano"));
+            EventTypeCollection.Add(new EventType(4, "Basketball"));
             EventTypeCollection.Add(new EventType(5, "Musicales"));
             EventTypeCollection.Add(new EventType(6, "Premios"));
             EventTypeCollection.Add(new EventType(7, "Otros"));

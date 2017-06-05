@@ -1,15 +1,22 @@
-﻿namespace MovilesApp.Model
+﻿using System;
+//using Windows.UI.Xaml.Media.Imaging;
+
+namespace MovilesApp.Model
 {
     public class EventType
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        //Buscar la manera de usar imagenes del sistema
-        //      Bitmap?
-        //public int ImageResource { get; set; }
-
+        //private BitmapImage _bmi;
+        public string sUri { get; set; }
         public string HexColor { get; set; }
+        public Uri Uri { get; set; }
+
+        //public BitmapImage ImageResource
+        //{
+        //    get { return _bmi; }
+        //    set { _bmi = value; }
+        //}
 
         public EventType() { }
 
@@ -19,6 +26,7 @@
         {
             this.Id = id;
             this.Name = name;
+            //_bmi = new BitmapImage();
         }
 
         public EventType(int id, string name, string hexColor)
@@ -26,6 +34,7 @@
             this.Id = id;
             this.Name = name;
             this.HexColor = hexColor;
+            //_bmi = new BitmapImage();
         }
     }
 }

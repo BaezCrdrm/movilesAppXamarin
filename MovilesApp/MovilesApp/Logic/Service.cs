@@ -37,7 +37,7 @@ namespace MovilesApp.Logic
                     try
                     {
                         ev.Type.Id = Int32.Parse(item.tp_id);
-                        ev.Type.Name = item.tp_name;
+                        ev.Type.Name = item.tp_name;                        
                     }
                     catch (Exception)
                     {

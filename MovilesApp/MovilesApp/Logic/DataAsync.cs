@@ -5,9 +5,6 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.Diagnostics;
-using Windows.Data.Json;
-using System.IO;
-using System.Runtime.Serialization.Json;
 
 namespace MovilesApp.Logic
 {
