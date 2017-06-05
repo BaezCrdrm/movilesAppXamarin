@@ -6,7 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Data.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MovilesApp.Logic
 {
@@ -18,12 +19,42 @@ namespace MovilesApp.Logic
 
             try
             {
-                
-            }
-            catch (Exception)
-            {
+                var jsonResponseArray = JsonConvert.DeserializeObject<ObservableCollection<Response>>(json);
 
-                throw;
+                foreach (Response item in jsonResponseArray)
+                {
+                    Event ev = new Event();
+                    ev.Id = item.ev_id;
+                    ev.Name = item.ev_name;
+                    ev.Description = item.ev_des;
+
+                    string strDate = item.ev_sch;
+                    strDate = strDate.Replace("/", "-");
+                    DateTime date = DateTime.ParseExact(strDate, "yyyy-MM-dd HH:mm:ss",
+                        System.Globalization.CultureInfo.InvariantCulture);
+                    ev.Schedule = date;
+
+                    try
+                    {
+                        ev.Type.Id = Int32.Parse(item.tp_id);
+                        ev.Type.Name = item.tp_name;
+                    }
+                    catch (Exception)
+                    {
+                        Debug.WriteLine("Error al agregar datos del tipo de evento");
+                    }
+
+                    events.Add(ev);
+                    ev = null;
+                }
+
+                jsonResponseArray = null;
+                Debug.WriteLine("");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
             }
 
             return events;
@@ -43,14 +74,26 @@ namespace MovilesApp.Logic
             try
             {
                 DataAsync da = new DataAsync();
-                json = await da.Get(ev);
+                json = await da.GetAsync(ev);
+                events = getEventCollection(json);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Excepción producida: " + ex.Message);
+                return null;
             }
 
-            return null;
+            return events;
         }
+    }
+
+    public class Response
+    {
+        public string ev_id { get; set; }
+        public string ev_name { get; set; }
+        public string ev_sch { get; set; }
+        public string ev_des { get; set; }
+        public string tp_id { get; set; }
+        public string tp_name { get; set; }
     }
 }

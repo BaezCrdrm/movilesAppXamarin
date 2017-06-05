@@ -5,40 +5,45 @@
     xmlns:local="using:MovilesApp.UWP.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:data="using:MovilesApp.Model"
+    mc:Ignorable="d" Loaded="Page_Loaded">
 
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ProgressRing x:Name="prProgress"
+                      Width="48"
+                      Height="48"
+                      IsActive="True"
+                      Visibility="Visible"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True"
+                      RelativePanel.AlignVerticalCenterWithPanel="True"
+                      Canvas.ZIndex="10" />
+        
         <Grid Canvas.ZIndex="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="txbEventFilter" Text="Tipo de evento" Style="{ThemeResource TitleTextBlockStyle}" />
+            <TextBlock x:Name="txbEventFilter" Text="Tipo de evento" 
+                       Style="{ThemeResource TitleTextBlockStyle}" />
 
-            <ListView x:Name="lvEvents">
+            <ListView Grid.Row="1"
+                      x:Name="lvEvents"
+                      ItemsSource="{x:Bind EventCollection}"
+                      >
                 <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image />
-                        
+                    <DataTemplate x:DataType="data:Event">
+                        <StackPanel Orientation="Horizontal" Tag="{x:Bind Id}">
+                            <Image/>
+
                             <StackPanel Orientation="Vertical">
-                                <TextBlock />
-                                <TextBlock />
+                                <TextBlock Text="{x:Bind Name}" Style="{ThemeResource BaseTextBlockStyle}" />
+                                <TextBlock Text="{x:Bind Description}" Foreground="gray" FontSize="12" />
                             </StackPanel>
-                        </StackPanel>                    
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-
-        <ProgressRing x:Name="prProgress"
-                      Width="48"
-                      Height="48"
-                      IsActive="True"
-                      RelativePanel.AlignHorizontalCenterWithPanel="True"
-                      RelativePanel.AlignVerticalCenterWithPanel="True"
-                      Canvas.ZIndex="10"
-                      />
     </RelativePanel>
 </Page>

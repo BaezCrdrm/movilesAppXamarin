@@ -7,12 +7,13 @@ using System.Net.Http;
 using System.Diagnostics;
 using Windows.Data.Json;
 using System.IO;
+using System.Runtime.Serialization.Json;
 
 namespace MovilesApp.Logic
 {
     public class DataAsync
     {
-        public async Task<string> Get(Event ev)
+        public async Task<string> GetAsync(Event ev)
         {
             HttpStatusCode response;
             string result = "";
@@ -44,14 +45,6 @@ namespace MovilesApp.Logic
                 {
                     result = await resp.Content.ReadAsStringAsync();
                     return result;
-
-                    /*string json = "";
-                    var r = await resp.Content.ReadAsStreamAsync();
-                    using (StreamReader tr = new StreamReader(r))
-                    {
-                        json = tr.ReadToEnd();
-                    }
-                    return json;*/
                 }
                 else
                     return null;
@@ -63,5 +56,5 @@ namespace MovilesApp.Logic
                 return null;
             }
         }
-    }
+    }    
 }

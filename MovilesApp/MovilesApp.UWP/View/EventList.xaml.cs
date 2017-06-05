@@ -6,8 +6,11 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,9 +28,10 @@ namespace MovilesApp.UWP.View
     /// </summary>
     public sealed partial class EventList : Page
     {
+        private readonly SynchronizationContext sc;
         private ObservableCollection<Event> _events;
 
-        public ObservableCollection<Event> Events
+        public ObservableCollection<Event> EventCollection
         {
             get { return _events; }
             set { _events = value; }
@@ -36,13 +40,42 @@ namespace MovilesApp.UWP.View
         public EventList()
         {
             this.InitializeComponent();
-            test();
+            sc = SynchronizationContext.Current;            
         }
 
-        private async void test()
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {            
+            GetData();
+        }
+
+        private async void GetData()
         {
+            await Task.Run(() =>
+            {
+                UpdateUI(true);
+            });
             Service service = new Service();
-            await service.GetData(null, 1);
+            Task<ObservableCollection<Event>> task = 
+                Task.Run(() => service.GetData(null, 1));
+            _events = task.Result;
+            lvEvents.ItemsSource = this.EventCollection;
+            prProgress.IsActive = false;
+        }
+
+        private void UpdateUI(Boolean value)
+        {
+            sc.Post(new SendOrPostCallback(o =>
+            {
+                try
+                {
+                    prProgress.IsActive = true;
+                    if(lvEvents.Items.Count > 0)
+                        prProgress.IsActive = false;
+                } catch(Exception ex)
+                {
+                    prProgress.IsActive = false;
+                }
+            }), value);
         }
     }
 }

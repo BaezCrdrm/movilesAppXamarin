@@ -76,7 +76,7 @@
                           SelectionChanged="lvMenu_SelectionChanged">                    
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="data:EventType">
-                            <ListViewItem Tag="{x:Bind Id}" Content="{x:Bind Name}" />
+                            <TextBlock Tag="{x:Bind Id}" Text="{x:Bind Name}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
