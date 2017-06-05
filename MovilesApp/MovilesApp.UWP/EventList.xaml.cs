@@ -55,6 +55,7 @@ namespace MovilesApp.UWP.View
             {
                 UpdateUI(true);
             });
+
             Service service = new Service();
             Task<ObservableCollection<Event>> task =
                 Task.Run(() => service.GetData(null, 1));
@@ -62,6 +63,7 @@ namespace MovilesApp.UWP.View
             ObservableCollection<Event> _temp = new ObservableCollection<Event>();
             _temp = task.Result;
             setImageResources(_temp);
+            _temp = null;
 
             lvEvents.ItemsSource = this.EventCollection;
             prProgress.IsActive = false;
@@ -115,6 +117,7 @@ namespace MovilesApp.UWP.View
 
                 _events.Add(ue);
             }
+            _temp = null;
         }
 
         private void UpdateUI(Boolean value)

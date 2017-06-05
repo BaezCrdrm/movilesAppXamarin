@@ -10,10 +10,8 @@
 
     <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ProgressRing x:Name="prProgress"
-                      Width="48"
-                      Height="48"
-                      IsActive="True"
-                      Visibility="Visible"
+                      Width="48" Height="48"
+                      IsActive="True" Visibility="Visible"
                       RelativePanel.AlignHorizontalCenterWithPanel="True"
                       RelativePanel.AlignVerticalCenterWithPanel="True"
                       Canvas.ZIndex="10" />
