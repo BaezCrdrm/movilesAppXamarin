@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
-        
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualState">
@@ -16,15 +16,15 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="rdRow1.Height"
-                                Value="220" />
+                                    Value="220" />
                         <Setter Target="imgEventType.Width"
-                                Value="280" />
+                                    Value="280" />
                         <Setter Target="txbEventTitle.FontSize"
-                                Value="25" />
+                                    Value="25" />
                         <Setter Target="txbEventSch.FontSize"
-                                Value="18" />
+                                    Value="18" />
                         <Setter Target="spBasicInfo.MaxWidth"
-                                Value="215" />
+                                    Value="215" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -34,15 +34,15 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="rdRow1.Height"
-                                Value="240" />
+                                    Value="240" />
                         <Setter Target="imgEventType.Height"
-                                Value="320" />
+                                    Value="320" />
                         <Setter Target="txbEventTitle.FontSize"
-                                Value="30" />
+                                    Value="30" />
                         <Setter Target="txbEventSch.FontSize"
-                                Value="23" />
+                                    Value="23" />
                         <Setter Target="spBasicInfo.MaxWidth"
-                                Value="440" />
+                                    Value="440" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -52,56 +52,65 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="rdRow1.Height"
-                                Value="260" />
+                                    Value="260" />
                         <Setter Target="imgEventType.Height"
-                                Value="350" />
+                                    Value="350" />
                         <Setter Target="txbEventTitle.FontSize"
-                                Value="35" />
+                                    Value="35" />
                         <Setter Target="txbEventSch.FontSize"
-                                Value="25" />
+                                    Value="25" />
                         <Setter Target="spBasicInfo.MaxWidth"
-                                Value="850" />
+                                    Value="850" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         
-        
-        <Grid.RowDefinitions>
-            <RowDefinition x:Name="rdRow1" />
-            <RowDefinition x:Name="rdRow2" Height="*" />
-        </Grid.RowDefinitions>
+        <Grid>          
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="rdRow1" />
+                <RowDefinition x:Name="rdRow2" Height="*" />
+            </Grid.RowDefinitions>
 
-        <RelativePanel Grid.Row="0" x:Name="rpHeader">
-            <Image x:Name="imgEventType"
-                   Source="/Assets/soccergrande_rect.png"/>
+            <RelativePanel Grid.Row="0" x:Name="rpHeader">
+                <Image x:Name="imgEventType"
+                       Source="/Assets/soccergrande_rect.png"/>
 
-            <StackPanel x:Name="spBasicInfo"
-                        Orientation="Vertical"
-                        RelativePanel.AlignRightWithPanel="True"
-                        RelativePanel.AlignBottomWithPanel="True"
-                        Margin="5, 5, 10, 10">
-                <TextBlock x:Name="txbEventTitle"
-                           Text="Titulo del evento"
-                           TextWrapping="Wrap"
-                           HorizontalAlignment="Right"
-                           FontSize="30" />
-                <TextBlock x:Name="txbEventSch" 
-                           Text="Horario del evento"
-                           TextWrapping="Wrap"
-                           Foreground="LightGray"
-                           HorizontalAlignment="Right"/>
-            </StackPanel>
-        </RelativePanel>
+                <StackPanel x:Name="spBasicInfo"
+                            Orientation="Vertical"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.AlignBottomWithPanel="True"
+                            Margin="5, 5, 10, 10">
+                    <TextBlock x:Name="txbEventTitle"
+                               Text="Titulo del evento"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Right"
+                               FontSize="30" />
+                    <TextBlock x:Name="txbEventSch" 
+                               Text="Horario del evento"
+                               TextWrapping="Wrap"
+                               Foreground="LightGray"
+                               HorizontalAlignment="Right"/>
+                </StackPanel>
+            </RelativePanel>
 
-        <RelativePanel Grid.Row="1">
-            <ListView>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
+            <RelativePanel Grid.Row="1">
+                <ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
                         
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </RelativePanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RelativePanel>
+
+        
+        </Grid>
+    
+        <ProgressRing x:Name="prProgress"
+                      Width="48" Height="48"
+                      IsActive="True"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
     </Grid>
 </Page>

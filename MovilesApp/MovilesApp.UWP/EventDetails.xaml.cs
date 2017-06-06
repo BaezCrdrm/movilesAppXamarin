@@ -1,5 +1,6 @@
 ﻿using MovilesApp.Logic;
 using MovilesApp.Model;
+using MovilesApp.UWP.Logic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -29,11 +31,16 @@ namespace MovilesApp.UWP.View
     /// </summary>
     public sealed partial class EventDetails : Page
     {
+        private readonly SynchronizationContext sc;
         public Event eventInfo { get; set; }
         public EventDetails()
         {
             this.InitializeComponent();
             eventInfo = new Event();
+            sc = SynchronizationContext.Current;
+            txbEventTitle.Text = "";
+            txbEventSch.Text = "";
+            imgEventType.Source = null;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -47,12 +54,12 @@ namespace MovilesApp.UWP.View
             loadData();
         }
 
-        private void loadData()
+        private async void loadData()
         {
-            //await Task.Run(() =>
-            //{
-            //    UpdateUI(true);
-            //});
+            await Task.Run(() =>
+            {
+                UpdateUI(true);
+            });
 
             Service service = new Service();
             Task<ObservableCollection<Event>> task =
@@ -66,9 +73,26 @@ namespace MovilesApp.UWP.View
             txbEventTitle.Text = eventInfo.Name;
             txbEventSch.Text = eventInfo.Schedule.ToString();
             BitmapImage bmi = new BitmapImage(eventInfo.Type.Uri);
-            rpHeader.Background = HexToBrush(eventInfo.Type.HexColor);
+            Validate val = new Validate();
+            rpHeader.Background = val.HexToBrush(eventInfo.Type.HexColor);
             imgEventType.Source = bmi;
+            prProgress.IsActive = false;
             
+        }
+
+        private void UpdateUI(bool v)
+        {
+            sc.Post(new SendOrPostCallback(o =>
+            {
+                try
+                {
+                    prProgress.IsActive = true;
+                }
+                catch (Exception ex)
+                {
+                    prProgress.IsActive = false;
+                }
+            }), v);
         }
 
         private Event setResources(ObservableCollection<Event> temp)
@@ -116,26 +140,6 @@ namespace MovilesApp.UWP.View
             ev.Type.Uri = new Uri(strUri);
 
             return ev;
-        }
-
-        private static Brush HexToBrush(string hexColor)
-        {
-            //Remove # if present
-            if (hexColor.IndexOf('#') != -1)
-                hexColor = hexColor.Replace("#", "");
-            byte red = 0;
-            byte green = 0;
-            byte blue = 0;
-
-            if (hexColor.Length == 6)
-            {
-                return new SolidColorBrush(ColorHelper.FromArgb(255,                
-                red = byte.Parse(hexColor.Substring(0, 2), NumberStyles.AllowHexSpecifier),
-                green = byte.Parse(hexColor.Substring(2, 2), NumberStyles.AllowHexSpecifier),
-                blue = byte.Parse(hexColor.Substring(4, 2), NumberStyles.AllowHexSpecifier)));
-            }
-            else
-                return null;
         }
     }
 }

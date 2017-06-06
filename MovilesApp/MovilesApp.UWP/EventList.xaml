@@ -8,12 +8,48 @@
     xmlns:local="using:Xamarin.Forms.Platform.UWP"
     mc:Ignorable="d" Loaded="Page_Loaded">
 
-    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualState">
+                <VisualState x:Name="SmallPortrait">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="txbEventFilter.Margin"
+                                Value="80, 10, 0, 10" />
+                        <Setter Target="lvEvents.MinWidth"
+                                Value="300" />
+                        <Setter Target="lvEvents.Margin"
+                                Value="10, 10, 0, 10" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="HalfSizeLandscape">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="BigLandscape">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1008" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
         <ProgressRing x:Name="prProgress"
                       Width="48" Height="48"
                       IsActive="True" Visibility="Visible"
-                      RelativePanel.AlignHorizontalCenterWithPanel="True"
-                      RelativePanel.AlignVerticalCenterWithPanel="True"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       Canvas.ZIndex="10" />
         
         <Grid Canvas.ZIndex="5">
@@ -22,13 +58,15 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="txbEventFilter" Text="Tipo de evento" 
+            <TextBlock x:Name="txbEventFilter" Text="Tipo de evento"
+                       Margin="10"
                        Style="{ThemeResource TitleTextBlockStyle}" />
 
             <ListView Grid.Row="1"
                       x:Name="lvEvents"
                       ItemsSource="{x:Bind EventCollection}"
-                      SelectionChanged="lvEvents_SelectionChanged">
+                      SelectionChanged="lvEvents_SelectionChanged"
+                      HorizontalAlignment="Left">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:uwpEvent">
                         <StackPanel Orientation="Horizontal" Tag="{x:Bind Id}">
@@ -45,5 +83,5 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-    </RelativePanel>
+    </Grid>
 </Page>

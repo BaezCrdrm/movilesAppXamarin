@@ -25,7 +25,14 @@
                         <Setter Target="frameEventList.Margin"
                                 Value="0" />
                         <Setter Target="frameEventDetails.Margin"
+                                Value="0" />                        
+
+                        <Setter Target="spMenu.(Grid.Row)"
                                 Value="0" />
+                        <Setter Target="spMenu.(Grid.RowSpan)"
+                                Value="2" />
+                        <Setter Target="lvMenu.Margin"
+                                Value="0, 48, 0, 0" />
                         <Setter Target="spnlMenu.Background"
                                 Value="Transparent" />
                     </VisualState.Setters>
@@ -36,8 +43,8 @@
                         <AdaptiveTrigger MinWindowWidth="640" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="spMenu.DisplayMode"
-                                Value="Inline" />
+                        <Setter Target="spnlMenu.Background"
+                                Value="Transparent" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -46,9 +53,13 @@
                         <AdaptiveTrigger MinWindowWidth="1008" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="spMenu.DisplayMode"
+                                Value="Inline" />
                         <Setter Target="spMenu.IsPaneOpen"
                                 Value="True" />
                         <Setter Target="spnlMenu.Width" Value="320" />
+                        <Setter Target="spnlMenu.Background"
+                                Value="LightGray" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -58,26 +69,30 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <RelativePanel>
+        <RelativePanel Canvas.Left="0" Canvas.Top="0"
+                       Canvas.ZIndex="10">
             <StackPanel x:Name="spnlMenu"
                         Width="auto"
                         RelativePanel.AlignLeftWithPanel="True"
-                        Background="LightGray">
+                        Background="Transparent">
             
                 <Button x:Name="btnMenu"
                         FontFamily="Segoe MDL2 Assets" Content="&#xE700;"
                         Width="48" Height="48"
                         FontSize="30"
                         Background="Transparent"
-                        Click="btnMenu_Click" />
+                        Click="btnMenu_Click" ToolTipService.ToolTip="Menu"
+                        Canvas.ZIndex="50"/>
             </StackPanel>
         </RelativePanel>
 
         <SplitView Grid.Row="1" x:Name="spMenu"
-                   DisplayMode="Inline"
-                   OpenPaneLength="320">
+                   DisplayMode="Overlay"
+                   OpenPaneLength="320"
+                   Canvas.ZIndex="5"
+                   PaneClosed="spMenu_PaneClosed">
             <SplitView.Pane>
-                <ListView x:Name="lvMenu" 
+                <ListView x:Name="lvMenu"
                           Background="LightGray"
                           ItemsSource="{x:Bind EventTypeCollection}"
                           SelectionChanged="lvMenu_SelectionChanged">                    

@@ -1,4 +1,5 @@
 ﻿using MovilesApp.Model;
+using MovilesApp.UWP.Logic;
 using MovilesApp.UWP.View;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -53,9 +55,17 @@ namespace MovilesApp.UWP
         {
             spMenu.IsPaneOpen = !spMenu.IsPaneOpen;
             if (spMenu.IsPaneOpen)
+            {
                 spnlMenu.Width = 320;
+                Validate val = new Validate();
+                spnlMenu.Background = val.HexToBrush("D3D3D3");
+            }
             else
+            {
+                spnlMenu.Background = 
+                    new SolidColorBrush(Windows.UI.Color.FromArgb(0, 0, 0, 0));
                 spnlMenu.Width = 48;
+            }
         }
 
         private void generateEventType()
@@ -76,6 +86,7 @@ namespace MovilesApp.UWP
 
             frameEventDetails.Visibility = Visibility.Collapsed;
             spMenu.IsPaneOpen = false;
+            spnlMenu.Width = 48;
             frameEventList.Visibility = Visibility.Visible;
             frameEventList.Navigate(typeof(EventList), et.Id);
         }
@@ -97,6 +108,16 @@ namespace MovilesApp.UWP
                 frameEventList.Visibility = visible;
                 frameEventDetails.Visibility = visible;
             }
+
+            if (spMenu.IsPaneOpen == false)
+                spnlMenu.Width = 48;
+        }
+
+        private void spMenu_PaneClosed(SplitView sender, object args)
+        {
+            spnlMenu.Background =
+                    new SolidColorBrush(Windows.UI.Color.FromArgb(0, 0, 0, 0));
+            spnlMenu.Width = 48;
         }
     }
 }
