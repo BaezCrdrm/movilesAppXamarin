@@ -3,21 +3,11 @@ using MovilesApp.Model;
 using MovilesApp.UWP.LocalModel;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -54,17 +44,7 @@ namespace MovilesApp.UWP.View
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                GetDataAsync();
-            }
-            catch (Exception ex)
-            {
-                MessageDialog md = new MessageDialog(
-                    "Hubo un problema al obtener los resultados. Intente una vez más",
-                    "Upps :S");
-                Debug.WriteLine(ex.Message);
-            }
+            GetDataAsync();
         }
 
         private async void GetDataAsync()
@@ -79,12 +59,23 @@ namespace MovilesApp.UWP.View
                 Task.Run(() => service.GetData(null, typeEvent));
 
             ObservableCollection<Event> _temp = new ObservableCollection<Event>();
-            _temp = task.Result;
-            setImageResources(_temp);
-            _temp = null;
+            try
+            {
+                _temp = task.Result;
+                setImageResources(_temp);
+                _temp = null;
 
-            lvEvents.ItemsSource = this.EventCollection;
-            prProgress.IsActive = false;
+                lvEvents.ItemsSource = this.EventCollection;
+                prProgress.IsActive = false;
+            }
+            catch (Exception)
+            {
+                MessageDialog md = new MessageDialog(
+                    "Verifique la conexión a internet.",
+                    "Error al obtener los datos");
+                await md.ShowAsync();
+                prProgress.IsActive = false;
+            }
         }
 
         private void setImageResources(ObservableCollection<Event> _temp)
@@ -131,7 +122,8 @@ namespace MovilesApp.UWP.View
                 ue.Schedule = ev.Schedule;
                 ue.Description = ev.Description;
                 ue.Type = ev.Type;
-                ue.BitmapImageResource = new Windows.UI.Xaml.Media.Imaging.BitmapImage(ev.Type.Uri);
+                ue.BitmapImageResource = 
+                    new Windows.UI.Xaml.Media.Imaging.BitmapImage(ev.Type.Uri);
 
                 _events.Add(ue);
             }

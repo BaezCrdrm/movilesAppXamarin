@@ -2,23 +2,12 @@
 using MovilesApp.Model;
 using MovilesApp.UWP.Logic;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -65,19 +54,31 @@ namespace MovilesApp.UWP.View
             Task<ObservableCollection<Event>> task =
                 Task.Run(() => service.GetData(eventInfo.Id, 1));
 
-            ObservableCollection<Event> _temp = new ObservableCollection<Event>();
-            _temp = task.Result;
-            eventInfo = setResources(_temp);
-            _temp = null;
+            try
+            {
+                ObservableCollection<Event> _temp = new ObservableCollection<Event>();
+                _temp = task.Result;
+                eventInfo = setResources(_temp);
+                _temp = null;
 
-            txbEventTitle.Text = eventInfo.Name;
-            txbEventSch.Text = eventInfo.Schedule.ToString();
-            BitmapImage bmi = new BitmapImage(eventInfo.Type.Uri);
-            Validate val = new Validate();
-            rpHeader.Background = val.HexToBrush(eventInfo.Type.HexColor);
-            imgEventType.Source = bmi;
-            prProgress.IsActive = false;
-            
+                txbEventTitle.Text = eventInfo.Name;
+                txbEventSch.Text = eventInfo.Schedule.ToString();
+                BitmapImage bmi = new BitmapImage(eventInfo.Type.Uri);
+                Validate val = new Validate();
+                rpHeader.Background = val.HexToBrush(eventInfo.Type.HexColor);
+                imgEventType.Source = bmi;
+            }
+            catch (Exception)
+            {
+                MessageDialog md = new MessageDialog(
+                    "Verifique la conexión a internet.",
+                    "Error al obtener los datos");
+                await md.ShowAsync();
+            }
+            finally
+            {
+                prProgress.IsActive = false;
+            }
         }
 
         private void UpdateUI(bool v)
