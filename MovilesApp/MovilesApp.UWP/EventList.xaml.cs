@@ -34,6 +34,9 @@ namespace MovilesApp.UWP.View
             this.InitializeComponent();
             _events = new ObservableCollection<uwpEvent>();
             sc = SynchronizationContext.Current;
+
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                Windows.UI.Core.AppViewBackButtonVisibility.Visible;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -44,7 +47,7 @@ namespace MovilesApp.UWP.View
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            GetDataAsync();
+            GetDataAsync();            
         }
 
         private async void GetDataAsync()

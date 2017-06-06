@@ -36,11 +36,34 @@ namespace MovilesApp.UWP
             set { _eventTypes = value; }
         }
 
-
         public MainPage()
         {
             this.InitializeComponent();
             generateEventType();
+            
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+        }
+
+        private void MainPage_BackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e)
+        {
+            if(frameEventList.CanGoBack && frameEventDetails.IsEnabled == false)
+            {
+                frameEventList.GoBack();
+                e.Handled = true;
+            }
+            else if (frameEventDetails.IsEnabled == true && 
+                frameEventDetails.Visibility == Visibility.Visible)
+            {
+                frameEventDetails.Content = null;
+                frameEventDetails.Visibility = Visibility.Collapsed;
+                frameEventDetails.IsEnabled = false;
+            }
+
+            if (!frameEventList.CanGoBack && frameEventDetails.IsEnabled == false)
+            {
+                Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -49,6 +72,9 @@ namespace MovilesApp.UWP
             frameEventDetails.Visibility = Visibility.Collapsed;
             frameEventDetails.IsEnabled = false;
             frameEventList.Visibility = Visibility.Visible;
+
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
         }
 
         private void btnMenu_Click(object sender, RoutedEventArgs e)

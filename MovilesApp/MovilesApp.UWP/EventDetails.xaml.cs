@@ -42,6 +42,9 @@ namespace MovilesApp.UWP.View
             txbDetails.Text = "";
             btnAddToCalendar.Visibility = Visibility.Collapsed;
             imgEventType.Source = null;
+
+            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                Windows.UI.Core.AppViewBackButtonVisibility.Visible;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
