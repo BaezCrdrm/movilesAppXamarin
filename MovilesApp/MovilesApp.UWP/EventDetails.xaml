@@ -27,6 +27,8 @@
                                     Value="18" />
                         <Setter Target="spBasicInfo.MaxWidth"
                                     Value="215" />
+                        <Setter Target="btnAddToCalendar.Margin"
+                                    Value="0,0,3,0" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -118,15 +120,35 @@
                 </StackPanel>
             </RelativePanel>
 
-            <TextBlock x:Name="txbDetails"
-                       Grid.Row="1"
-                       Text="Detalles del evento"
-                       Margin="10,5"
-                       FontSize="18"/>
+            <Grid Grid.Row="1" Margin="0,3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock x:Name="txbDetails"
+                           Grid.Column="0"
+                           Margin="5,0"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           MaxLines="3"
+                           Text="Detalles del evento"                           
+                           FontSize="18"/>
+
+                <Button x:Name="btnAddToCalendar"
+                        Grid.Column="1"
+                        Width="52" Height="46"
+                        FontSize="20"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xEA89;"
+                        Foreground="White"
+                        Click="btnAddToCalendar_Click" />
+            </Grid>
 
             <Grid Grid.Row="2">
                 <ListView x:Name="lvChannelList"
-                          ItemsSource="{x:Bind ChannelList}">
+                          ItemsSource="{x:Bind ChannelList}"
+                          SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="data:Channel">
                             <StackPanel Orientation="Horizontal">

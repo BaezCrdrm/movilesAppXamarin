@@ -3,8 +3,10 @@ using MovilesApp.Model;
 using MovilesApp.UWP.Logic;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Appointments;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,6 +40,7 @@ namespace MovilesApp.UWP.View
             txbEventTitle.Text = "";
             txbEventSch.Text = "";
             txbDetails.Text = "";
+            btnAddToCalendar.Visibility = Visibility.Collapsed;
             imgEventType.Source = null;
         }
 
@@ -75,11 +78,24 @@ namespace MovilesApp.UWP.View
                 _temp = null;
 
                 txbEventTitle.Text = EventInfo.Name;
-                txbEventSch.Text = EventInfo.Schedule.ToString();
+                //txbEventSch.Text = EventInfo.Schedule.ToString("dddd dd MMM yyyy HH:mm", 
+                //    CultureInfo.CurrentCulture);
+                string format = "";
+
+                if (CultureInfo.CurrentCulture == new CultureInfo("es-MX"))
+                    format = "dddd dd MMM yyyy HH:mm";
+                else
+                    format = "dddd MMM dd yyyy HH:mm";
+
+                txbEventSch.Text = EventInfo.Schedule.ToString(format, CultureInfo.CurrentCulture);
                 BitmapImage bmi = new BitmapImage(EventInfo.Type.Uri);
                 Validate val = new Validate();
-                rpHeader.Background = val.HexToBrush(EventInfo.Type.HexColor);
-                txbDetails.Foreground = val.HexToBrush(EventInfo.Type.HexColor);
+                var color = val.HexToBrush(EventInfo.Type.HexColor);
+                rpHeader.Background = color;
+                txbDetails.Foreground = color;
+                btnAddToCalendar.Background = color;
+                btnAddToCalendar.Visibility = Visibility.Visible;
+                
                 txbDetails.Text = EventInfo.Description;
                 imgEventType.Source = bmi;
             }
@@ -156,6 +172,21 @@ namespace MovilesApp.UWP.View
             ev.Type.Uri = new Uri(strUri);
 
             return ev;
+        }
+
+        private async void btnAddToCalendar_Click(object sender, RoutedEventArgs e)
+        {
+            var appt = new Appointment();
+            appt.Subject = EventInfo.Name;
+            appt.Details = EventInfo.Description;
+
+            appt.StartTime = EventInfo.Schedule;
+            appt.Duration = TimeSpan.FromHours(2);
+            Windows.Foundation.Rect rect= new Windows.Foundation.Rect(0,0,100,100);
+            //var rect = (Button)sender;
+
+            string apid = await AppointmentManager.ShowAddAppointmentAsync(
+                appt, rect);
         }
     }
 }
