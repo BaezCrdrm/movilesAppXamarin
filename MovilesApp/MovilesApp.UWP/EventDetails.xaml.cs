@@ -21,20 +21,30 @@ namespace MovilesApp.UWP.View
     public sealed partial class EventDetails : Page
     {
         private readonly SynchronizationContext sc;
-        public Event eventInfo { get; set; }
+        public Event EventInfo { get; set; }
+        private ObservableCollection<Channel> _channels;
+
+        public ObservableCollection<Channel> ChannelList
+        {
+            get { return _channels; }
+            set { _channels = value; }
+        }
+
+
         public EventDetails()
         {
             this.InitializeComponent();
-            eventInfo = new Event();
+            EventInfo = new Event();
             sc = SynchronizationContext.Current;
             txbEventTitle.Text = "";
             txbEventSch.Text = "";
+            txbDetails.Text = "";
             imgEventType.Source = null;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            eventInfo.Id = e.Parameter.ToString();
+            EventInfo.Id = e.Parameter.ToString();
             base.OnNavigatedTo(e);
         }
 
@@ -51,21 +61,27 @@ namespace MovilesApp.UWP.View
             });
 
             Service service = new Service();
-            Task<ObservableCollection<Event>> task =
-                Task.Run(() => service.GetData(eventInfo.Id, 1));
+            Task<ObservableCollection<Event>> taskEvents =
+                Task.Run(() => service.GetData(EventInfo.Id, 1));
+            Task<ObservableCollection<Channel>> taskChannels =
+                Task.Run(() => service.GetData(EventInfo.Id));
 
             try
             {
                 ObservableCollection<Event> _temp = new ObservableCollection<Event>();
-                _temp = task.Result;
-                eventInfo = setResources(_temp);
+                _temp = taskEvents.Result;
+                EventInfo = setResources(_temp);
+                _channels = taskChannels.Result;
+                lvChannelList.ItemsSource = ChannelList;
                 _temp = null;
 
-                txbEventTitle.Text = eventInfo.Name;
-                txbEventSch.Text = eventInfo.Schedule.ToString();
-                BitmapImage bmi = new BitmapImage(eventInfo.Type.Uri);
+                txbEventTitle.Text = EventInfo.Name;
+                txbEventSch.Text = EventInfo.Schedule.ToString();
+                BitmapImage bmi = new BitmapImage(EventInfo.Type.Uri);
                 Validate val = new Validate();
-                rpHeader.Background = val.HexToBrush(eventInfo.Type.HexColor);
+                rpHeader.Background = val.HexToBrush(EventInfo.Type.HexColor);
+                txbDetails.Foreground = val.HexToBrush(EventInfo.Type.HexColor);
+                txbDetails.Text = EventInfo.Description;
                 imgEventType.Source = bmi;
             }
             catch (Exception)

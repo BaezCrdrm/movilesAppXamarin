@@ -10,7 +10,7 @@ namespace MovilesApp.Logic
 {
     public class DataAsync
     {
-        public async Task<string> GetAsync(Event ev)
+        public async Task<string> GetEventAsync(Event ev)
         {
             HttpStatusCode response;
             string result = "";
@@ -33,7 +33,49 @@ namespace MovilesApp.Logic
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Ha habido un error al establecer la conexión");
+                    Debug.WriteLine("Ha habido un error al establecer la conexión en evento");
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+
+                if (response == HttpStatusCode.OK)
+                {
+                    result = await resp.Content.ReadAsStringAsync();
+                    return result;
+                }
+                else
+                    return null;
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<string> GetChannelListAsync(string id)
+        {
+            HttpStatusCode response;
+            string result = "";
+
+            try
+            {
+                string strUrl = String.Format("http://livebr.esy.es/scripts/service/rest/req_eventChannelList.php?ev_id={0}&tpId=null",
+                    id);
+
+                HttpClientHandler handler = new HttpClientHandler();
+                HttpClient con = new HttpClient(handler);
+                var resp = await con.GetAsync(strUrl);
+                Debug.WriteLine(resp.ToString());
+
+                try
+                {
+                    response = resp.StatusCode;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Ha habido un error al establecer la conexión en canales");
                     Debug.WriteLine(ex.Message);
                     return null;
                 }

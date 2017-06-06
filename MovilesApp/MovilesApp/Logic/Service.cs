@@ -15,13 +15,14 @@ namespace MovilesApp.Logic
     {
         private ObservableCollection<Event> getEventCollection(string json)
         {
-            ObservableCollection<Event> events = new ObservableCollection<Event>();
-
+            ObservableCollection<Event> events = 
+                new ObservableCollection<Event>();
             try
             {
-                var jsonResponseArray = JsonConvert.DeserializeObject<ObservableCollection<Response>>(json);
+                var jsonResponseArray = 
+                    JsonConvert.DeserializeObject<ObservableCollection<EventResponse>>(json);
 
-                foreach (Response item in jsonResponseArray)
+                foreach (EventResponse item in jsonResponseArray)
                 {
                     Event ev = new Event();
                     ev.Id = item.ev_id;
@@ -60,6 +61,40 @@ namespace MovilesApp.Logic
             return events;
         }
 
+        private ObservableCollection<Channel> getChannelCollection(string json)
+        {
+            ObservableCollection<Channel> channels = 
+                new ObservableCollection<Channel>();
+
+            try
+            {
+                var jsonResponseArray =
+                    JsonConvert.DeserializeObject<ObservableCollection<ChannelResponse>>(json);
+
+                foreach (ChannelResponse item in jsonResponseArray)
+                {
+                    Channel ch = new Channel();
+                    ch.Id = Int32.Parse(item.ch_id);
+                    ch.Name = item.ch_name;
+                    ch.Abv = item.ch_abv;
+                    ch.UrlImagePath = item.ch_img;
+
+                    channels.Add(ch);
+                    ch = null;
+                }
+
+                jsonResponseArray = null;
+                Debug.WriteLine("");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
+
+            return channels;
+        }
+
         public async Task<ObservableCollection<Event>> GetData(string id, int type)
         {
             ObservableCollection<Event> events = new ObservableCollection<Event>();
@@ -74,7 +109,7 @@ namespace MovilesApp.Logic
             try
             {
                 DataAsync da = new DataAsync();
-                json = await da.GetAsync(ev);
+                json = await da.GetEventAsync(ev);
                 events = getEventCollection(json);
             }
             catch (Exception ex)
@@ -85,9 +120,30 @@ namespace MovilesApp.Logic
 
             return events;
         }
+
+        public async Task<ObservableCollection<Channel>> GetData(string id)
+        {
+            ObservableCollection<Channel> channels = 
+                new ObservableCollection<Channel>();
+            string json = "";
+
+            try
+            {
+                DataAsync da = new DataAsync();
+                json = await da.GetChannelListAsync(id);
+                channels = getChannelCollection(json);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Excepción producida: " + ex.Message);
+                return null;
+            }
+
+            return channels;
+        }
     }
 
-    public class Response
+    public class EventResponse
     {
         public string ev_id { get; set; }
         public string ev_name { get; set; }
@@ -95,5 +151,13 @@ namespace MovilesApp.Logic
         public string ev_des { get; set; }
         public string tp_id { get; set; }
         public string tp_name { get; set; }
+    }
+
+    public class ChannelResponse
+    {
+        public string ch_id { get; set; }
+        public string ch_name { get; set; }
+        public string ch_abv { get; set; }
+        public string ch_img { get; set; }
     }
 }

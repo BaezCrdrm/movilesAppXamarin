@@ -5,6 +5,7 @@
     xmlns:local="using:MovilesApp.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:MovilesApp.Model"
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -69,7 +70,8 @@
         <Grid>          
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="rdRow1" />
-                <RowDefinition x:Name="rdRow2" Height="*" />
+                <RowDefinition x:Name="rdRow2" Height="auto" />
+                <RowDefinition x:Name="rdRow3" Height="*" />
             </Grid.RowDefinitions>
 
             <RelativePanel Grid.Row="0" x:Name="rpHeader">
@@ -94,17 +96,31 @@
                 </StackPanel>
             </RelativePanel>
 
-            <RelativePanel Grid.Row="1">
-                <ListView>
+            <TextBlock x:Name="txbDetails"
+                       Grid.Row="1"
+                       Text="Detalles del evento"
+                       Margin="10,5"
+                       FontSize="18"/>
+
+            <Grid Grid.Row="2">
+                <ListView x:Name="lvChannelList"
+                          ItemsSource="{x:Bind ChannelList}">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
-                        
+                        <DataTemplate x:DataType="data:Channel">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="50" Height="50"
+                                       Stretch="Fill"
+                                       Margin="0, 2"
+                                       Source="{x:Bind UrlImagePath}"/>
+                                <TextBlock Text="{x:Bind Name}"
+                                           VerticalAlignment="Center"
+                                           Margin="12, 0, 0, 0"
+                                           FontSize="15"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </RelativePanel>
-
-        
+            </Grid>
         </Grid>
     
         <ProgressRing x:Name="prProgress"

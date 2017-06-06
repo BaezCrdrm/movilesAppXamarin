@@ -116,8 +116,7 @@
                     </Frame>
 
                     <Frame Grid.Column="1" x:Name="frameEventDetails"
-                           Margin="10" Visibility="Collapsed"
-                           IsEnabled="False" >
+                           Margin="10">
                     </Frame>
                 </Grid>
             </SplitView.Content>            

@@ -17,11 +17,9 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="txbEventFilter.Margin"
-                                Value="80, 10, 0, 10" />
-                        <Setter Target="lvEvents.MinWidth"
-                                Value="300" />
+                                Value="80, 10, 5, 10" />
                         <Setter Target="lvEvents.Margin"
-                                Value="10, 10, 0, 10" />
+                                Value="10" />
                     </VisualState.Setters>
                 </VisualState>
 
@@ -66,7 +64,7 @@
                       x:Name="lvEvents"
                       ItemsSource="{x:Bind EventCollection}"
                       SelectionChanged="lvEvents_SelectionChanged"
-                      HorizontalAlignment="Left">
+                      HorizontalAlignment="Stretch">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="data:uwpEvent">
                         <StackPanel Orientation="Horizontal" Tag="{x:Bind Id}">
