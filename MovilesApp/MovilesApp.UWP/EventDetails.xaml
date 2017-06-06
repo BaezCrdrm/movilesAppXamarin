@@ -14,6 +14,7 @@
                 <VisualState x:Name="SmallPortrait">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
+                        <AdaptiveTrigger MinWindowHeight="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="rdRow1.Height"
@@ -29,9 +30,29 @@
                     </VisualState.Setters>
                 </VisualState>
 
+                <!--<VisualState x:Name="SmallLandscape">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                        <AdaptiveTrigger MinWindowHeight="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rdRow1.Height"
+                                    Value="150" />
+                        <Setter Target="imgEventType.Width"
+                                    Value="180" />
+                        <Setter Target="txbEventTitle.FontSize"
+                                    Value="25" />
+                        <Setter Target="txbEventSch.FontSize"
+                                    Value="18" />
+                        <Setter Target="spBasicInfo.MaxWidth"
+                                    Value="215" />
+                    </VisualState.Setters>
+                </VisualState>-->
+
                 <VisualState x:Name="HalfSizeLandscape">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="640" />
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                        <AdaptiveTrigger MinWindowHeight="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="rdRow1.Height"
@@ -50,6 +71,7 @@
                 <VisualState x:Name="BigLandscape">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1008" />
+                        <AdaptiveTrigger MinWindowHeight="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="rdRow1.Height"

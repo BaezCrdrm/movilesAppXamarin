@@ -16,8 +16,6 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="txbEventFilter.Margin"
-                                Value="80, 10, 5, 10" />
                         <Setter Target="lvEvents.Margin"
                                 Value="10" />
                     </VisualState.Setters>
@@ -57,7 +55,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock x:Name="txbEventFilter" Text="Tipo de evento"
-                       Margin="10"
+                       Margin="80, 0, 5, 10"
                        Style="{ThemeResource TitleTextBlockStyle}" />
 
             <ListView Grid.Row="1"

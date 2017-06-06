@@ -30,7 +30,6 @@ namespace MovilesApp.UWP.View
             set { _channels = value; }
         }
 
-
         public EventDetails()
         {
             this.InitializeComponent();

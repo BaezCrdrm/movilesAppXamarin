@@ -86,7 +86,7 @@
             </StackPanel>
         </RelativePanel>
 
-        <SplitView Grid.Row="1" x:Name="spMenu"
+        <SplitView Grid.Row="0" Grid.RowSpan="2" x:Name="spMenu"
                    DisplayMode="Overlay"
                    OpenPaneLength="320"
                    Canvas.ZIndex="5"
