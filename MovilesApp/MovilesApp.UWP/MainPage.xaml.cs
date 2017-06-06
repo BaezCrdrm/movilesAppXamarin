@@ -4,6 +4,7 @@ using MovilesApp.UWP.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -108,13 +109,20 @@ namespace MovilesApp.UWP
 
         private void lvMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            EventType et = (EventType)((ListView)sender).SelectedItem;
-
             frameEventDetails.Visibility = Visibility.Collapsed;
             spMenu.IsPaneOpen = false;
             spnlMenu.Width = 48;
             frameEventList.Visibility = Visibility.Visible;
-            frameEventList.Navigate(typeof(EventList), et.Id);
+
+            try
+            {
+                EventType et = (EventType)((ListView)sender).SelectedItem;
+                frameEventList.Navigate(typeof(EventList), et.Id);
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("Excepción producida al navegar");
+            }
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
