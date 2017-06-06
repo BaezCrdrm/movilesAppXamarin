@@ -72,7 +72,11 @@
                             <StackPanel Orientation="Vertical"
                                         Margin="15, 10, 10, 10">
                                 <TextBlock Text="{x:Bind Name}" Style="{ThemeResource BaseTextBlockStyle}" />
-                                <TextBlock Text="{x:Bind Description}" Foreground="gray" FontSize="12" />
+                                <TextBlock Text="{x:Bind Description}" 
+                                           Foreground="gray" FontSize="12"
+                                           MaxLines="1"
+                                           TextWrapping="NoWrap"
+                                           TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
