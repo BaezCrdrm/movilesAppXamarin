@@ -1,48 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<Package
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
-
-  <Identity
-    Name="cef3253c-03e8-427f-9de7-4bd5ee4f6214"
-    Publisher="CN=Samuel"
-    Version="1.0.0.0" />
-
-  <mp:PhoneIdentity PhoneProductId="cef3253c-03e8-427f-9de7-4bd5ee4f6214" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="cef3253c-03e8-427f-9de7-4bd5ee4f6214" Publisher="CN=Samuel" Version="0.8.0.0" />
+  <mp:PhoneIdentity PhoneProductId="cef3253c-03e8-427f-9de7-4bd5ee4f6214" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>MovilesApp.UWP</DisplayName>
-    <PublisherDisplayName>Samuel</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <PublisherDisplayName>BaezCrdrm</PublisherDisplayName>
+    <Logo>Assets\Icon\StoreLogo.png</Logo>
   </Properties>
-
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="MovilesApp.UWP.App">
-      <uap:VisualElements
-        DisplayName="MovilesApp.UWP"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="MovilesApp.UWP"
-        BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="MovilesApp.UWP.App">
+      <uap:VisualElements DisplayName="Guia" Square150x150Logo="Assets\Icon\Square150x150Logo.png" Square44x44Logo="Assets\Icon\Square44x44Logo.png" Description="App que permite conocer en qué canales de televisión se mostrarán programas o eventos en vivo." BackgroundColor="lightGray">
+        <uap:LockScreen Notification="badge" BadgeLogo="Assets\Icon\BadgeLogo.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\Icon\Wide310x150Logo.png" Square310x310Logo="Assets\Icon\LargeTile.png" Square71x71Logo="Assets\Icon\SmallTile.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\Icon\SplashScreen.png" BackgroundColor="white" />
       </uap:VisualElements>
     </Application>
   </Applications>
-
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
