@@ -29,11 +29,8 @@ namespace MovilesApp.Logic
                     ev.Name = item.ev_name;
                     ev.Description = item.ev_des;
 
-                    string strDate = item.ev_sch;
-                    strDate = strDate.Replace("/", "-");
-                    DateTime date = DateTime.ParseExact(strDate, "yyyy-MM-dd HH:mm:ss",
-                        System.Globalization.CultureInfo.InvariantCulture);
-                    ev.Schedule = date;
+                    ev.Schedule = parseToDate(item.ev_sch);
+                    ev.Ending = parseToDate(item.ev_sch_end);
 
                     try
                     {
@@ -59,6 +56,15 @@ namespace MovilesApp.Logic
             }
 
             return events;
+        }
+
+        private DateTime parseToDate(string sch)
+        {
+            string strDate = sch;
+            strDate = strDate.Replace("/", "-");
+            DateTime date = DateTime.ParseExact(strDate, "yyyy-MM-dd HH:mm:ss",
+                System.Globalization.CultureInfo.InvariantCulture);
+            return date;
         }
 
         private ObservableCollection<Channel> getChannelCollection(string json)
@@ -148,6 +154,7 @@ namespace MovilesApp.Logic
         public string ev_id { get; set; }
         public string ev_name { get; set; }
         public string ev_sch { get; set; }
+        public string ev_sch_end { get; set; }
         public string ev_des { get; set; }
         public string tp_id { get; set; }
         public string tp_name { get; set; }

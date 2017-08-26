@@ -12,6 +12,8 @@ namespace MovilesApp.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public DateTime Schedule { get; set; }
+        private DateTime _ending;
+        private TimeSpan _duration;
         public string Description { get; set; }
         private EventType _eventType;
         private ObservableCollection<Channel> _channelList;
@@ -26,7 +28,21 @@ namespace MovilesApp.Model
         {
             get { return _channelList; }
             set { _channelList = value; }
-        }        
+        }
+
+        public DateTime Ending
+        {
+            set
+            {
+                _ending = value;
+                _duration = this._ending - this.Schedule;
+            }
+        }
+
+        public TimeSpan Duration
+        {
+            get { return _duration; }
+        }
 
         public Event()
         {
