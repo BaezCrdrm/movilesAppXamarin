@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovilesApp.Android", "MovilesApp\MovilesApp.Android\MovilesApp.Android.csproj", "{B5410623-06D7-426C-ADF0-A14888FDB4B3}"
 EndProject
@@ -28,6 +28,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B5410623-06D7-426C-ADF0-A14888FDB4B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5410623-06D7-426C-ADF0-A14888FDB4B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5410623-06D7-426C-ADF0-A14888FDB4B3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{B5410623-06D7-426C-ADF0-A14888FDB4B3}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{B5410623-06D7-426C-ADF0-A14888FDB4B3}.Debug|ARM.Build.0 = Debug|Any CPU
 		{B5410623-06D7-426C-ADF0-A14888FDB4B3}.Debug|ARM.Deploy.0 = Debug|Any CPU
@@ -78,8 +80,6 @@ Global
 		{6183B6F3-D4C2-4434-B5A1-1106B46C40F4}.Release|x64.ActiveCfg = Release|iPhone
 		{6183B6F3-D4C2-4434-B5A1-1106B46C40F4}.Release|x86.ActiveCfg = Release|iPhone
 		{234CA5C2-2E8A-4631-83E8-46983239F13C}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{234CA5C2-2E8A-4631-83E8-46983239F13C}.Debug|Any CPU.Build.0 = Debug|x86
-		{234CA5C2-2E8A-4631-83E8-46983239F13C}.Debug|Any CPU.Deploy.0 = Debug|x86
 		{234CA5C2-2E8A-4631-83E8-46983239F13C}.Debug|ARM.ActiveCfg = Debug|ARM
 		{234CA5C2-2E8A-4631-83E8-46983239F13C}.Debug|ARM.Build.0 = Debug|ARM
 		{234CA5C2-2E8A-4631-83E8-46983239F13C}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -130,5 +130,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {635153C6-B8EA-470B-AB79-BB05E805339A}
 	EndGlobalSection
 EndGlobal
