@@ -9,17 +9,14 @@ using Android.OS;
 
 namespace MovilesApp.Droid
 {
-	[Activity (Label = "MovilesApp.Android", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity (Label = "MovilesApp.Android", MainLauncher = true, Icon = "@drawable/ic_launcher")]
 	public class MainActivity : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
-
-			
 		}
 	}
 }
