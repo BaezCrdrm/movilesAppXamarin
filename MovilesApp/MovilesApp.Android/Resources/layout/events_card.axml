@@ -16,7 +16,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerCrop"
-            android:elevation="5dp"
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp" />
@@ -37,7 +36,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:textSize="18dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp" />
             <TextView
                 android:id="@+id/txvDescription"
                 android:layout_width="wrap_content"
