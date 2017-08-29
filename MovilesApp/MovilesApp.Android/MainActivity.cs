@@ -9,7 +9,7 @@ using Android.OS;
 
 namespace MovilesApp.Droid
 {
-	[Activity (Label = "MovilesApp.Android", MainLauncher = true, Icon = "@drawable/ic_launcher")]
+	[Activity (Label = "Guia", MainLauncher = true, Icon = "@drawable/ic_launcher")]
 	public class MainActivity : Activity
 	{
 		protected override void OnCreate (Bundle bundle)
