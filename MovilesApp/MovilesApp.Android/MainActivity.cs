@@ -51,8 +51,7 @@ namespace MovilesApp.Droid
             SetSupportActionBar(toolbar);
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu_black);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            SupportActionBar.Subtitle = "Hola";
-            SupportActionBar.Title = "Mi guia";
+            SupportActionBar.Title = GetString(Resource.String.app_name);
         }
         
         private void initView()
@@ -68,45 +67,56 @@ namespace MovilesApp.Droid
             fragment = new AllEvents();
             Bundle args = new Bundle();
             long newNav = 0;
+            string title = GetString(Resource.String.app_name);
 
-            switch(id)
+            switch (id)
             {
                 case Resource.Id.nav_all:
+                    title = GetString(Resource.String.menu_all);
                     newNav = -1;
                     break;
 
                 case Resource.Id.nav_football:
+                    title = GetString(Resource.String.menu_football);
                     newNav = 1;
                     break;
 
                 case Resource.Id.nav_soccer:
+                    title = GetString(Resource.String.menu_soccer);
                     newNav = 2;
                     break;
 
                 case Resource.Id.nav_basketball:
+                    title = GetString(Resource.String.menu_basketball);
                     newNav = 3;
                     break;
 
                 case Resource.Id.nav_baseball:
+                    title = GetString(Resource.String.menu_baseball);
                     newNav = 4;
                     break;
 
                 case Resource.Id.nav_music:
+                    title = GetString(Resource.String.menu_music);
                     newNav = 5;
                     break;
 
                 case Resource.Id.nav_awards:
+                    title = GetString(Resource.String.menu_awards);
                     newNav = 6;
                     break;
 
                 case Resource.Id.nav_other:
+                    title = GetString(Resource.String.menu_other);
                     newNav = 7;
                     break;
 
                 //case Resource.Id.nav_box:
+                //title = GetString(Resource.String.menu_box);
                 //    newNav = 8;
                 //    break;
             }
+            SupportActionBar.Title = title;
             Long serializable = (Long)newNav;
             args.PutSerializable("EventType", serializable);
             //args.PutSerializable("Region", '');
