@@ -6,4 +6,6 @@
     <color name="tabTextColor">#D6FD56</color>
     <color name="navBarColor">#1A6600</color>
     <color name="white">#FFFFFF</color>
+    <color name="red">#DE0814</color>
+    <color name="blue">#0C23B1</color>
 </resources>

@@ -20,7 +20,7 @@
                     android:title="@string/menu_basketball" />
 
                 <item
-                    android:id="@+id/nav_basketball"
+                    android:id="@+id/nav_baseball"
                     android:title="@string/menu_baseball" />
 
                 <!--<item

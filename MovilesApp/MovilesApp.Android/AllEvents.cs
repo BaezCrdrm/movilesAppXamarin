@@ -13,9 +13,11 @@ using Android.Support.V4.Widget;
 using System.Threading;
 using Android.Util;
 
+using SupportFragment = Android.Support.V4.App.Fragment;
+
 namespace MovilesApp.Droid
 {
-    public class AllEvents:Fragment
+    public class AllEvents: SupportFragment
     {
         private ObservableCollection<Event> events;
         private int typeEvent = 0;
@@ -32,6 +34,7 @@ namespace MovilesApp.Droid
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.fragment_all_events, container, false);
+            typeEvent = Int32.Parse(Arguments.GetSerializable("EventType").ToString());
             srlRefresh = view.FindViewById<SwipeRefreshLayout>(Resource.Id.srlRefresh);
             btnReload = view.FindViewById<Button>(Resource.Id.btnReload);
             events = new ObservableCollection<Event>();
@@ -44,7 +47,7 @@ namespace MovilesApp.Droid
                 {
                     srlRefresh.Refreshing = true;
                 });
-                tr = setLoadingThread();
+                tr = SetLoadingThread();
                 tr.Start();
             }
             catch (Exception ex)
@@ -60,15 +63,15 @@ namespace MovilesApp.Droid
 
         private void BtnReload_Click(object sender, EventArgs e)
         {
-            refresh();
+            Refresh();
         }
 
         private void SrlRefresh_Refresh(object sender, EventArgs e)
         {
-            refresh();
+            Refresh();
         }
 
-        private void refresh()
+        private void Refresh()
         {
             Activity.RunOnUiThread(() =>
             {
@@ -79,11 +82,11 @@ namespace MovilesApp.Droid
             try { events.Clear(); }
             catch (Exception) { }
 
-            tr = setLoadingThread();
+            tr = SetLoadingThread();
             tr.Start();
         }
 
-        private void loadData()
+        private void LoadData()
         {
             if (events != null)
             {
@@ -96,7 +99,7 @@ namespace MovilesApp.Droid
                             ToastLength.Long).Show();
         }
 
-        private Thread setLoadingThread()
+        private Thread SetLoadingThread()
         {
             Thread tr = new Thread(() =>
             {
@@ -130,9 +133,23 @@ namespace MovilesApp.Droid
 
                     try
                     {
-                        loadData();
+                        LoadData();
                         if (events.Count == 0 || events == null)
+                        {
+                            if(events.Count == 0)
+                            {
+                                Toast.MakeText(Activity.ApplicationContext,
+                                    Resource.String.msg_events_list_no_events,
+                                    ToastLength.Short).Show();
+                            }
+                            else if(events == null)
+                            {
+                                Toast.MakeText(Activity.ApplicationContext,
+                                    Resource.String.msg_no_internet_connection,
+                                    ToastLength.Short).Show();
+                            }
                             btnReload.Visibility = ViewStates.Visible;
+                        }
                         else
                             btnReload.Visibility = ViewStates.Gone;
                     }

@@ -6,6 +6,8 @@
     
     <!--Toast-->
     <string name="exceptionTryLater">There was a problem. Try again.</string>
+    <string name="msg_no_internet_connection">Verify the internet connection.</string>
+    <string name="msg_events_list_no_events">There are no registered events.</string>
     
     <!-- Menu -->
     <string name="menu_group_sports">Sports</string>
