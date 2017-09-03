@@ -1,5 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
-	<string name="app_name">MovilesApp.Android</string>
+	<string name="reload">Try again</string>
+	<string name="app_name">MovilesApp</string>
+    <string name="settings">Settings</string>
+    
+    <!--Toast-->
+    <string name="exceptionTryLater">There was a problem. Try again.</string>
+    <string name="msg_no_internet_connection">Verify the internet connection.</string>
+    <string name="msg_events_list_no_events">There are no registered events.</string>
+    
+    <!-- Menu -->
+    <string name="menu_group_sports">Sports</string>
+    <string name="menu_group_arts">Art</string>
+    
+    <string name="menu_all">All events</string>
+    <string name="menu_football">Football</string>
+    <string name="menu_soccer">Soccer</string>
+    <string name="menu_basketball">Basketball</string>
+    <string name="menu_baseball">Baseball</string>
+    <string name="menu_box">Box</string>
+
+    <string name="menu_music">Music</string>
+    <string name="menu_awards">Awards</string>
+    <string name="menu_other">Other</string>
 </resources>

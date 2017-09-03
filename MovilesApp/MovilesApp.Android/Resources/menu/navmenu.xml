@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/nav_all"
+            android:checked="true"
+            android:title="@string/menu_all" />
+    
+    <group android:checkableBehavior="single">
+        <item android:title="@string/menu_group_sports">
+            <menu>
+                <item
+                    android:id="@+id/nav_football"
+                    android:title="@string/menu_football" />
+                <item
+                    android:id="@+id/nav_soccer"
+                    android:title="@string/menu_soccer" />
+            
+                <item
+                    android:id="@+id/nav_basketball"
+                    android:title="@string/menu_basketball" />
+
+                <item
+                    android:id="@+id/nav_baseball"
+                    android:title="@string/menu_baseball" />
+
+                <!--<item
+                    android:id="@+id/nav_box"
+                    android:title="@string/menu_box" />-->
+            </menu>
+        </item>
+    </group>
+    
+    <group android:checkableBehavior="single">
+        <item android:title="@string/menu_group_arts">
+            <menu>
+                <item
+                    android:id="@+id/nav_music"
+                    android:title="@string/menu_music"/>
+                <item
+                    android:id="@+id/nav_awards"
+                    android:title="@string/menu_awards"/>
+            </menu>
+        </item>
+    </group>   
+    <item
+        android:id="@+id/nav_other"
+        android:title="@string/menu_other" />
+</menu>

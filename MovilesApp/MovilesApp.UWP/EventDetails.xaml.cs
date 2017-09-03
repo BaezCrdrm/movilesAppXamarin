@@ -39,6 +39,7 @@ namespace MovilesApp.UWP.View
             sc = SynchronizationContext.Current;
             txbEventTitle.Text = "";
             txbEventSch.Text = "";
+            txbEventDuration.Text = "";
             txbDetails.Text = "";
             btnAddToCalendar.Visibility = Visibility.Collapsed;
             imgEventType.Source = null;
@@ -98,7 +99,16 @@ namespace MovilesApp.UWP.View
                 txbDetails.Foreground = color;
                 btnAddToCalendar.Background = color;
                 btnAddToCalendar.Visibility = Visibility.Visible;
-                
+
+                if (EventInfo.Duration > new TimeSpan(0, 0, 0))
+                {
+                    txbEventDuration.Visibility = Visibility.Visible;
+                    txbEventDuration.Foreground = color;
+                    txbEventDuration.Text = String.Format("Duración aprox: {0:%h} horas {0:%m} minutos",
+                        EventInfo.Duration);
+                }
+                else
+                    txbEventDuration.Visibility = Visibility.Collapsed;
                 txbDetails.Text = EventInfo.Description;
                 imgEventType.Source = bmi;
             }
