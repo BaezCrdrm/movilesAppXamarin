@@ -142,7 +142,7 @@ namespace MovilesApp.UWP.View
                     prProgress.IsActive = true;
                     if (lvEvents.Items.Count > 0)
                         prProgress.IsActive = false;
-                } catch (Exception ex)
+                } catch (Exception)
                 {
                     prProgress.IsActive = false;
                 }
