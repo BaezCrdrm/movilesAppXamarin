@@ -94,6 +94,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter\ChannelAdapter.cs" />
     <Compile Include="Adapter\EventsAdapter.cs" />
     <Compile Include="AllEvents.cs" />
     <Compile Include="EventDetails.cs" />
@@ -390,6 +391,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_menu_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\channels_card.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
