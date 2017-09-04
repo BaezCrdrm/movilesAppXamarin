@@ -31,22 +31,22 @@ namespace MovilesApp.Droid
             base.OnCreate(bundle);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            initView();
-            initToolbar();
+            InitView();
+            InitToolbar();
             navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
-            navigate(Resource.Id.nav_all);
+            Navigate(Resource.Id.nav_all);
         }
 
         private void NavigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
         {
             e.MenuItem.SetChecked(true);
             //react to click here and swap fragments or navigate
-            navigate(e.MenuItem.ItemId);
+            Navigate(e.MenuItem.ItemId);
 
             drawerLayout.CloseDrawers();
         }
 
-        public void initToolbar()
+        public void InitToolbar()
         {
             SetSupportActionBar(toolbar);
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu_black);
@@ -54,14 +54,14 @@ namespace MovilesApp.Droid
             SupportActionBar.Title = GetString(Resource.String.app_name);
         }
         
-        private void initView()
+        private void InitView()
         {
             toolbar = FindViewById<SupportToolbar>(Resource.Id.toolbar);
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.dlDrawer);
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
         }
 
-        private bool navigate(int id)
+        private bool Navigate(int id)
         {
             fragment = null;
             fragment = new AllEvents();
@@ -121,12 +121,12 @@ namespace MovilesApp.Droid
             args.PutSerializable("EventType", serializable);
             //args.PutSerializable("Region", '');
             fragment.Arguments = args;
-            navigate(Resource.Id.rLayoutEventList, fragment);
+            Navigate(Resource.Id.rLayoutEventList, fragment);
 
             return true;
         }
 
-        private void navigate(int replaced, SupportFragment frag)
+        private void Navigate(int replaced, SupportFragment frag)
         {
             RelativeLayout rl = FindViewById<RelativeLayout>(Resource.Id.rLayoutEventDetails);
             if (replaced == Resource.Id.rLayoutEventList)
