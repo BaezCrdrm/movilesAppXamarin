@@ -12,6 +12,8 @@ using Android.Widget;
 using Android.Support.V7.Widget;
 using MovilesApp.Model;
 using System.Collections.ObjectModel;
+using SupportFragment = Android.Support.V4.App.Fragment;
+using Android.Support.V4.App;
 
 namespace MovilesApp.Droid.Adapter
 {
@@ -54,23 +56,18 @@ namespace MovilesApp.Droid.Adapter
                 case 2:
                     resource = Resource.Drawable.soccer;
                     break;
-
                 case 3:
                     resource = Resource.Drawable.basketball;
                     break;
-
                 case 4:
                     resource = Resource.Drawable.baseball;
                     break;
-
                 case 5:
                     resource = Resource.Drawable.music;
                     break;
-
                 case 6:
                     resource = Resource.Drawable.awards;
                     break;
-
                 default:
                     resource = Resource.Drawable.gen;
                     break;
@@ -85,8 +82,38 @@ namespace MovilesApp.Droid.Adapter
 
         private void LlEvent_Click(object sender, EventArgs e)
         {
-            String id = ((LinearLayout)sender).Tag.ToString();
-            // Navigation event
+            string id = ((LinearLayout)sender).Tag.ToString();
+            var obj = (LinearLayout)sender;
+            Navigate(obj.RootView, id, obj.Context);
+        }
+
+        private void Navigate(View view, String id, Context context)
+        {
+            SupportFragment fragment = new EventDetails();
+            Bundle args = new Bundle();
+            
+            args.PutString("id", id);
+            fragment.Arguments = args;
+            SwitchContent(Resource.Id.rLayoutEventDetails, fragment, view, context);
+        }
+
+        private void SwitchContent(int replaced, SupportFragment fragment, View view, Context context)
+        {
+            if (view.Context == null)
+                return;
+            if(context.GetType() == typeof(MainActivity))
+            {
+                try
+                {
+                    MainActivity main = (MainActivity)context;
+                    SupportFragment frag = fragment;
+                    main.Navigate(replaced, frag);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+                }
+            }
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

@@ -126,7 +126,7 @@ namespace MovilesApp.Droid
             return true;
         }
 
-        private void Navigate(int replaced, SupportFragment frag)
+        public void Navigate(int replaced, SupportFragment frag)
         {
             RelativeLayout rl = FindViewById<RelativeLayout>(Resource.Id.rLayoutEventDetails);
             if (replaced == Resource.Id.rLayoutEventList)
