@@ -52,7 +52,7 @@ namespace MovilesApp.Droid
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Error al intentar obtener los datos");
+                System.Diagnostics.Debug.WriteLine("There was an error while trying to get the data.");
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
 
@@ -122,7 +122,7 @@ namespace MovilesApp.Droid
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine("Error al obtener los datos");
+                    System.Diagnostics.Debug.WriteLine("There was an error while trying to get the data.");
                     System.Diagnostics.Debug.WriteLine(ex.Message);
                     Log.Error("Error Thread", ex.Message);
                 }
