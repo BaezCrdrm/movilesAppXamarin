@@ -9,6 +9,7 @@ namespace MovilesApp.Model
         public string Name { get; set; }
         public string HexColor { get; set; }
         public int ImageResource { get; set; }
+        public Uri Uri { get; set; }
 
         public EventType() { }
 

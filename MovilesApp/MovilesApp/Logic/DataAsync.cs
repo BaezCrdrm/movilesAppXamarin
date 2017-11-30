@@ -17,7 +17,7 @@ namespace MovilesApp.Logic
 
             try
             {
-                string strUrl = String.Format("http://livebr.esy.es/scripts/service/rest/req_events.php?evId={0}&tpId=",
+                string strUrl = String.Format("http://18.221.160.127/guide-ws/service/scripts/rest/req_events.php?evId={0}&tpId=",
                     ev.Id);
                 if (ev.Type.Id > 0)
                     strUrl += ev.Type.Id.ToString();
@@ -61,7 +61,7 @@ namespace MovilesApp.Logic
 
             try
             {
-                string strUrl = String.Format("http://livebr.esy.es/scripts/service/rest/req_eventChannelList.php?ev_id={0}&tpId=null",
+                string strUrl = String.Format("http://18.221.160.127/guide-ws/service/scripts/rest/req_eventChannelList.php?evId={0}&tpId=null",
                     id);
 
                 HttpClientHandler handler = new HttpClientHandler();
